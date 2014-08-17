@@ -1,0 +1,33 @@
+{% extends 'bookmark/base.html' %}
+{%load newfilters%}
+{% block title %}{{ category_name }}{% endblock %}
+{%block body_block%}
+        {% if user.is_authenticated %}
+            {% if categories %}
+                <ul class="list-group">
+                    {% for category in categories %}
+                    <!-- Following line changed to add an HTML hyperlink -->
+                    <li class="list-group-item"><a href="/bookmark/category/{{ category.url }}#content_block">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+			{% else %}
+            <div class="panel panel-warning">
+				<div class="panel-heading">
+					<h3 class="panel-title">There are no pages here!</h3>
+				</div>
+			</div>
+            {% endif %}
+			<ul>
+                <a class="list-group-item list-group-item-info" href="/bookmark/add_category#content_block">Add a Category</a>
+            </ul>
+        {% else %}
+           <div class="panel panel-danger">
+				<div class="panel-heading">
+					<h3 class="panel-title">You are not logged in!</h3>
+				</div>
+			</div>
+			<ul>
+                <a class="list-group-item list-group-item-info" href="/bookmark/login#content_block">Login</a>
+            </ul>
+        {% endif %}
+{%endblock%}

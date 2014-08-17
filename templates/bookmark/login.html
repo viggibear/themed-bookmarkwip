@@ -1,0 +1,25 @@
+{% extends 'bookmark/base.html' %}
+{%load newfilters%}
+{% block title %}{{ category_name }}{% endblock %}
+{%block body_block%}
+        <h1>Login to Bookmark</h1>
+		<form id="login_form" method="post" action="/bookmark/login/">
+			<ul>
+				{% csrf_token %}
+				<div class="input-group input-group-lg">
+					<input type="text" name="username" value="" size="50" class="form-control" placeholder="Username">
+					<span class="input-group-addon">Required</span>
+				</div>
+				<br />
+				<div class="input-group input-group-lg">
+					<input type="password" name="password" value="" size="50" class="form-control" placeholder="Password">
+					<span class="input-group-addon">Required</span>
+				</div>
+				<br />
+			</ul>
+			<button class="btn btn-primary" type="submit" name="submit" value="submit">Submit</button>
+        </form>
+{%endblock%}
+
+
+
