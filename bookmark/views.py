@@ -210,11 +210,13 @@ def user_login(request):
                 return HttpResponseRedirect('/bookmark/')
             else:
                 # An inactive account was used - no logging in!
-                return HttpResponse("Your Bookmark account is disabled.")
+                text = "Your Bookmark account is disabled."
+                return render_to_response('bookmark/failedlogin.html', {'text':text}, context)
         else:
             # Bad login details were provided. So we can't log the user in.
+            text = "Invalid login details supplied."
             print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            return render_to_response('bookmark/failedlogin.html', {'text':text}, context)
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
@@ -235,4 +237,5 @@ def user_logout(request):
   
 @login_required
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+    text = "Since you're logged in, you can see this text!"
+    return render_to_response('bookmark/restricted.html', {'text':text}, RequestContext(request))
