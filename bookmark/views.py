@@ -20,7 +20,9 @@ def index(request):
 
     # Query for categories - add the list to our context dictionary.
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
+    page_list = Page.objects.order_by('-views')[:5]
+    context_dict = {'categories': category_list, 'pages': page_list}
+
 
     # The following two lines are new.
     # We loop through each category returned, and create a URL attribute.

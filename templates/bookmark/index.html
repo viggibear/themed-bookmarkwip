@@ -1,22 +1,42 @@
 {% extends 'bookmark/base.html' %}
 {%load newfilters%}
 {%block body_block%}
-        {% if user.is_authenticated %}
-            {% if categories %}
-                <ul class="list-group">
-                    {% for category in categories %}
-                    <!-- Following line changed to add an HTML hyperlink -->
-                    <li class="list-group-item"><a href="/bookmark/category/{{ category.url }}#content_block">{{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
-			{% else %}
-            <div class="panel panel-warning">
-				<div class="panel-heading">
-					<h3 class="panel-title">There are no pages here!</h3>
-				</div>
+		{% if categories %}
+		<h1> Top 5 Categories </h1>
+        <ul class="list-group">
+		{% for category in categories %}
+            <!-- Following line changed to add an HTML hyperlink -->
+            <li class="list-group-item"><a href="/bookmark/category/{{ category.url }}#content_block">{{ category.name }}</a></li>
+        {% endfor %}
+        </ul>
+		{% else %}
+        <div class="panel panel-warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">There are no Categories present!</h3>
 			</div>
-            {% endif %}
-			<ul>
+		</div>
+        {% endif %}
+		
+		<br />
+		
+		{% if pages %}
+		<h1> Top 5 Pages </h1>
+		<ul class="list-group">
+		{% for page in pages %}
+            <!-- Following line changed to add an HTML hyperlink -->
+            <li class="list-group-item"><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+		</ul>
+		{% else %}
+        <div class="panel panel-warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">There are no Pages present!</h3>
+			</div>
+		</div>
+		{% endif %}
+		
+		{% if user.is_authenticated %}
+            <ul>
                 <a class="list-group-item list-group-item-info" href="/bookmark/add_category#content_block">Add a Category</a>
             </ul>
         {% else %}
@@ -26,7 +46,10 @@
 				</div>
 			</div>
 			<ul>
-                <a class="list-group-item list-group-item-info" href="/bookmark/login#content_block">Login</a>
+                <a class="list-group-item list-group-item-success" href="/bookmark/login#content_block">Login</a>
             </ul>
+			<ul>
+				<a class="list-group-item list-group-item-info" href="/bookmark/register#content_block">Register if you don't have an account</a>
+			</ul>
         {% endif %}
 {%endblock%}
